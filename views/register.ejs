@@ -1,0 +1,86 @@
+<%- include ('partials/header') %>
+
+<h1>Sign Up!</h1>
+<form class="needs-validation" novalidate action="/register" method="POST">
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationTooltip01">First name</label>
+            <input
+                type="text"
+                class="form-control"
+                id="validationTooltip01"
+                name="firstName"
+                required
+            />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationTooltip02">Last name</label>
+            <input
+                type="text"
+                class="form-control"
+                id="validationTooltip02"
+                name="lastName"
+                required
+            />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationTooltip03">Email</label>
+            <input
+                type="email"
+                class="form-control"
+                id="validationTooltip03"
+                name="email"
+                required
+            />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationTooltip04">Password</label>
+            <input
+                type="password"
+                class="form-control"
+                id="validationTooltip04"
+                name="password"
+                required
+            />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationTooltip06">Username</label>
+            <input
+                type="text"
+                class="form-control"
+                id="validationTooltip07"
+                name="username"
+                required
+            />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="validationTooltip05">Admin Code</label>
+            <input
+                type="password"
+                class="form-control"
+                id="validationTooltip05"
+                name="adminCode"
+                required
+            />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-12 mb-3">
+            <label for="validationTooltip07">Avatar URL</label>
+            <input
+                type="password"
+                class="form-control"
+                id="validationTooltip07"
+                name="avatar"
+                required
+            />
+        </div>
+    </div>
+    <button class="btn btn-success">Sign Up</button>
+</form>
+
+<%- include ('partials/footer') %>

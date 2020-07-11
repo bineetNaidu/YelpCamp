@@ -1,0 +1,74 @@
+<%- include ('../partials/header') %> <% if (currentUser &&
+currentUser.isAdmin){ %>
+<div class="alert alert-primary" role="alert">
+    You are the admin...
+</div>
+<% } %>
+<div class="container">
+    <header class="jumbotron">
+        <div class="container">
+            <h1 id="header">Welcome to YelpCamp!</h1>
+            <p id="sub-head">
+                View our hand-picked campgrounds from all over the world
+            </p>
+            <a
+                href="/campgrounds/new"
+                class="btn btn-success btn-lg"
+                type="button"
+                >Add New CampGround</a
+            >
+            <form
+                action="/campgrounds"
+                method="GET"
+                class="form-inline mt-2"
+                id="fuzzy-search"
+            >
+                <div class="form-group">
+                    <input
+                        class="form-control form-control-sm"
+                        type="text"
+                        name="search"
+                        placeholder="Search Camps"
+                    />
+                    <button class="btn btn-info btn-sm">Search</button>
+                </div>
+            </form>
+        </div>
+    </header>
+
+    <div class="row text-center">
+        <div class="col-md-12">
+            <%if (noMatch !== null) { %>
+            <div class="alert alert-dark" role="alert">
+                <h4><%= noMatch %></h4>
+            </div>
+            <% }%>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <% campgrounds.forEach((campground)=>{ %>
+                <div class="col-md-3 col-sm-6 col-6">
+                    <figure class="figure">
+                        <img
+                            src="<%= campground.image %>"
+                            class="figure-img img-fluid rounded img-thumbnail"
+                            alt="..."
+                        />
+                        <figcaption class="figure-caption">
+                            <%=campground.name %>
+                        </figcaption>
+                        <a
+                            href="/campgrounds/<%= campground._id %>"
+                            class="btn btn-success btn-md"
+                            >More Info</a
+                        >
+                    </figure>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('../partials/footer') %>

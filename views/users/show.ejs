@@ -1,0 +1,43 @@
+<%- include ('../partials/header') %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="<%= user.avatar %>" alt="avatar" class="img-thumbnail" />
+        </div>
+        <div class="col-md-8">
+            <div class="container mt-5">
+                <h5><strong>Name :</strong> <%= user.firstName %> <%= user.lastName %></h1>
+                <h5><strong>Admin :</strong> 
+                    <% if(user.isAdmin) { %> 
+                        <em>Yes</em>
+                   <% } else { %> 
+                        <em>No</em>
+                    <%} %>
+                </h1>
+                <h5>
+                        <strong>Email :</strong>
+                        <a href="mailto:<%= user.email %>"><%= user.email %></a>
+                    </h5>
+                <p>
+                    <strong>BIO -</strong>
+                    <br />
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    Consequatur dignissimos ad perspiciatis quasi aliquam at, ea
+                    qui. Molestias voluptates reiciendis modi rem quos magnam.
+                    Accusamus?
+                </p>
+                <h3><%= user.firstName %>'s Campgrounds :-</h3>
+                <ul class="list-group list-group-flush">
+                    <% campgrounds.forEach((camp) => { %>
+                    <li class="list-group-item">
+                        <a href="/campgrounds/<%= camp.id %>" class="list-group-item list-group-item-action"><%= camp.name %></a
+                        >
+                    </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('../partials/footer') %>
