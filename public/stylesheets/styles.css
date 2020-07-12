@@ -45,7 +45,7 @@ body {
     font-size: 1rem;
     line-height: 25px;
     color: #3e3232;
-    position: absolute;
+    position: static;
     width: 100%;
     bottom: 0;
 }
