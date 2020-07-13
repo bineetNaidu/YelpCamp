@@ -35,22 +35,22 @@ body {
     animation: imageAnimation 50s linear infinite;
 }
 .slideshow li:nth-child(1) {
-    background-image: url("https://images.unsplash.com/photo-1593860572337-8face01d277e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+    background-image: url("../images/adventure-alps-camp-camping-618848.jpg");
 }
 .slideshow li:nth-child(2) {
-    background-image: url("https://images.unsplash.com/photo-1593948379522-5f7de5225db5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+    background-image: url("../images/automobile-campervan-camping-cars-587976.jpg");
     animation-delay: 10s;
 }
 .slideshow li:nth-child(3) {
-    background-image: url("https://images.unsplash.com/photo-1594091917763-420ab657d986?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60");
+    background-image: url("../images/bonfire-surrounded-with-green-grass-field-1061640.jpg");
     animation-delay: 20s;
 }
 .slideshow li:nth-child(4) {
-    background-image: url("https://images.unsplash.com/photo-1587134678871-c583cf96b30b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+    background-image: url("../images/six-camping-tents-in-forest-699558.jpg");
     animation-delay: 30s;
 }
 .slideshow li:nth-child(5) {
-    background-image: url("https://images.unsplash.com/photo-1584478389823-8bc243e88bfb?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+    background-image: url("../images/green-and-white-tents-near-trees-939723.jpg");
     animation-delay: 40s;
 }
 

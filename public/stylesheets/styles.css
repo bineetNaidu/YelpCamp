@@ -41,13 +41,14 @@ body {
 /* footer social icons */
 .site-footer {
     background-color: #cfd4e6;
-    padding: 0.5rem 0 0.5rem;
     font-size: 1rem;
-    line-height: 25px;
     color: #3e3232;
     position: static;
     width: 100%;
-    bottom: 0;
+    margin-top: 2rem;
+}
+#footer-main {
+    padding-top: 0.5rem;
 }
 
 ul.social-network {
