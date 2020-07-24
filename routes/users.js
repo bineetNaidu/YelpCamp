@@ -73,13 +73,13 @@ router.post("/forgot", async (req, res, next) => {
                     const smtpTransport = nodemailer.createTransport({
                         service: "Gmail",
                         auth: {
-                            user: "codewithbineet@gmail.com",
+                            user: process.env.GMAIL,
                             pass: process.env.GMAILPW,
                         },
                     });
                     const mailOptions = {
                         to: user.email,
-                        from: "codewithbineet@gmail.com",
+                        from: process.env.GMAIL,
                         subject: "YelpCamp Password Reset",
                         text:
                             "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
@@ -92,7 +92,6 @@ router.post("/forgot", async (req, res, next) => {
                             "If you did not request this, please ignore this email and your password will remain unchanged.\n",
                     };
                     smtpTransport.sendMail(mailOptions, (err) => {
-                        console.log("mail sent");
                         req.flash(
                             "success",
                             "An e-mail has been sent to " +
@@ -173,13 +172,13 @@ router.post("/reset/:token", async (req, res) => {
                     const smtpTransport = nodemailer.createTransport({
                         service: "Gmail",
                         auth: {
-                            user: "codewithbineet@gmail.com",
+                            user: process.env.GMAIL,
                             pass: process.env.GMAILPW,
                         },
                     });
                     const mailOptions = {
                         to: user.email,
-                        from: "codewithbineet@gmail.com",
+                        from: process.env.GMAIL,
                         subject: "Your password has been changed",
                         text:
                             "Hello,\n\n" +
