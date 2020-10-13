@@ -13,8 +13,10 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
-    <main class="container"><%- body -%></main>
+  <body class="d-flex flex-column vh-100">
+    <%- include navbar %>
+    <main class="container mt-5"><%- body -%></main>
+    <%- include footer %>
 
     <!-- Scripts -->
     <script
