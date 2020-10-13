@@ -59,5 +59,10 @@ app.put('/campgrounds/:id', async (req, res) => {
   res.redirect(`/campgrounds/${camp._id}`);
 });
 
+app.delete('/campgrounds/:id', async (req, res) => {
+  await Campground.findOneAndDelete({ _id: req.params.id });
+  res.redirect(`/campgrounds`);
+});
+
 // App Listeners
 app.listen(4242, () => console.log('YelpCamp Server has Started'));
