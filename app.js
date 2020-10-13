@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const Campground = require('./models/Campground');
+const methodOverride = require('method-override');
 
 // *********** App Configuration ***********
 const app = express();
@@ -22,6 +23,7 @@ db.on('open', () => console.log('>>>> DB Connected <<<<'));
 app.set('view engine', 'ejs');
 app.set(path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 // Unmounting routes
 app.get('/', (_, res) => res.render('home'));
@@ -43,5 +45,19 @@ app.post('/campgrounds', async (req, res) => {
   await camp.save();
   res.redirect(`/campgrounds/${camp._id}`);
 });
+
+app.get('/campgrounds/:id/edit', async (req, res) => {
+  const campground = await Campground.findOne({ _id: req.params.id });
+  res.render('campgrounds/edit', { campground });
+});
+
+app.put('/campgrounds/:id', async (req, res) => {
+  const camp = await Campground.findOneAndUpdate(
+    { _id: req.params.id },
+    { ...req.body.campground }
+  );
+  res.redirect(`/campgrounds/${camp._id}`);
+});
+
 // App Listeners
 app.listen(4242, () => console.log('YelpCamp Server has Started'));
