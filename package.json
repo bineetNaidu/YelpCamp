@@ -19,9 +19,11 @@
   "homepage": "https://github.com/bineetNaidu/YelpCamp#readme",
   "dependencies": {
     "ejs": "^3.1.5",
+    "ejs-mate": "^3.0.0",
     "express": "^4.17.1",
     "method-override": "^3.0.0",
-    "mongoose": "^5.10.9"
+    "mongoose": "^5.10.9",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "locus": "^2.0.4",

@@ -4,6 +4,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Campground = require('./models/Campground');
 const methodOverride = require('method-override');
+const logger = require('morgan');
+const ejsMate = require('ejs-mate');
 
 // *********** App Configuration ***********
 const app = express();
@@ -20,6 +22,8 @@ db.on('open', () => console.log('>>>> DB Connected <<<<'));
 // ? ***  DB connections ******
 
 // Middlewares
+app.use(logger('dev'));
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set(path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
