@@ -1,30 +1,29 @@
 {
-    "name": "yelpcamp",
-    "version": "1.0.0",
-    "description": "YelpCamp",
-    "main": "app.js",
-    "scripts": {
-        "start": "node app.js"
-    },
-    "author": "Bineet Naidu",
-    "license": "ISC",
-    "dependencies": {
-        "async": "^3.2.0",
-        "body-parser": "^1.19.0",
-        "connect-flash": "^0.1.1",
-        "dotenv": "^8.2.0",
-        "ejs": "^3.1.3",
-        "express": "^4.17.1",
-        "express-session": "^1.17.1",
-        "method-override": "^3.0.0",
-        "moment": "^2.27.0",
-        "mongoose": "^5.9.25",
-        "nodemailer": "^6.4.10",
-        "passport": "^0.4.1",
-        "passport-local": "^1.0.0",
-        "passport-local-mongoose": "^6.0.1"
-    },
-    "devDependencies": {
-        "locus": "^2.0.4"
-    }
+  "name": "yelpcamp",
+  "version": "2.0.0",
+  "description": "A Node js application for YelpCamp",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bineetNaidu/YelpCamp.git"
+  },
+  "author": "Bineet Naidu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bineetNaidu/YelpCamp/issues"
+  },
+  "homepage": "https://github.com/bineetNaidu/YelpCamp#readme",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.9"
+  },
+  "devDependencies": {
+    "locus": "^2.0.4",
+    "nodemon": "^2.0.4"
+  }
 }
