@@ -21,6 +21,7 @@ db.on('open', () => console.log('>>>> DB Connected <<<<'));
 // Middlewares
 app.set('view engine', 'ejs');
 app.set(path.join(__dirname, 'views'));
+app.use(express.urlencoded({ extended: true }));
 
 // Unmounting routes
 app.get('/', (_, res) => res.render('home'));
@@ -30,10 +31,17 @@ app.get('/campgrounds', async (_, res) => {
   res.render('campgrounds/index', { campgrounds });
 });
 
+app.get('/campgrounds/new', (_, res) => res.render('campgrounds/new'));
+
 app.get('/campgrounds/:id', async (req, res) => {
   const campground = await Campground.findOne({ _id: req.params.id });
   res.render('campgrounds/show', { campground });
 });
 
+app.post('/campgrounds', async (req, res) => {
+  const camp = new Campground(req.body.campground);
+  await camp.save();
+  res.redirect(`/campgrounds/${camp._id}`);
+});
 // App Listeners
 app.listen(4242, () => console.log('YelpCamp Server has Started'));
