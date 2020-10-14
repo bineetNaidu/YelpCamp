@@ -64,7 +64,9 @@ app.get('/campgrounds/new', (_, res) => res.render('campgrounds/new'));
 app.get(
   '/campgrounds/:id',
   catchAsync(async (req, res) => {
-    const campground = await Campground.findOne({ _id: req.params.id }).populate('reviews');
+    const campground = await Campground.findOne({
+      _id: req.params.id,
+    }).populate('reviews');
     res.render('campgrounds/show', { campground });
   })
 );
@@ -117,6 +119,19 @@ app.post(
     await review.save();
     await camp.save();
     res.redirect(`/campgrounds/${camp._id}`);
+  })
+);
+
+app.delete(
+  '/campgrounds/:id/reviews/:reviewId',
+  catchAsync(async (req, res) => {
+    const { id, reviewId } = req.params;
+    await Campground.findOneAndUpdate(
+      { _id: id },
+      { $pull: { reviews: reviewId } }
+    );
+    await Review.findOneAndDelete({ _id: reviewId });
+    res.redirect(`/campgrounds/${id}`);
   })
 );
 
