@@ -64,7 +64,7 @@ app.get('/campgrounds/new', (_, res) => res.render('campgrounds/new'));
 app.get(
   '/campgrounds/:id',
   catchAsync(async (req, res) => {
-    const campground = await Campground.findOne({ _id: req.params.id });
+    const campground = await Campground.findOne({ _id: req.params.id }).populate('reviews');
     res.render('campgrounds/show', { campground });
   })
 );
