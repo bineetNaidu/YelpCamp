@@ -8,6 +8,7 @@ const logger = require('morgan');
 const ejsMate = require('ejs-mate');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
+const { campSchema } = require('./schema');
 
 // *********** App Configuration ***********
 const app = express();
@@ -31,6 +32,15 @@ app.set(path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
+const validateCampSchema = (req, res, next) => {
+  const { error } = campSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(',');
+    throw new ExpressError(msg, 400);
+  }
+  next();
+};
+
 // Unmounting routes
 app.get('/', (_, res) => res.render('home'));
 
@@ -51,6 +61,7 @@ app.get(
 
 app.post(
   '/campgrounds',
+  validateCampSchema,
   catchAsync(async (req, res) => {
     const camp = new Campground(req.body.campground);
     await camp.save();
@@ -68,6 +79,7 @@ app.get(
 
 app.put(
   '/campgrounds/:id',
+  validateCampSchema,
   catchAsync(async (req, res) => {
     const camp = await Campground.findOneAndUpdate(
       { _id: req.params.id },
