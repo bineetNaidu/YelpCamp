@@ -6,6 +6,7 @@ import methodOverride from 'method-override';
 import logger from 'morgan';
 import ejsMate from 'ejs-mate';
 import { ExpressError } from './utils/ExpressError.js';
+import session from "express-session";
 
 // *********** App Configuration ***********
 const app = express();
@@ -30,6 +31,18 @@ app.set(path.join('views'));
 app.use(express.static(path.join('public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(
+  session({
+    secret: 'thishouldabettersecret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      httpOnly: true,
+      expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // ? 1 week
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
+  })
+);
 
 // Unmounting routes
 import campRoutes from './routers/campgrounds.js';
