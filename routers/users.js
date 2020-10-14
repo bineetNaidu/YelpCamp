@@ -1,7 +1,8 @@
 import express from 'express';
-import { registerUserPage } from '../controllers/users.js';
+import { createUser, registerUserPage } from '../controllers/users.js';
+import catchAsync from '../utils/catchAsync.js';
 const router = express.Router({ mergeParams: true });
 
-router.route('/register').get(registerUserPage);
+router.route('/register').get(registerUserPage).post(catchAsync(createUser));
 
 export default router;
