@@ -8,7 +8,7 @@ const logger = require('morgan');
 const ejsMate = require('ejs-mate');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
-const { campSchema } = require('./schema');
+const { campSchema, reviewSchema } = require('./schema');
 const Review = require('./models/Review');
 
 // *********** App Configuration ***********
@@ -35,6 +35,15 @@ app.use(methodOverride('_method'));
 
 const validateCampSchema = (req, res, next) => {
   const { error } = campSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(',');
+    throw new ExpressError(msg, 400);
+  }
+  next();
+};
+
+const validateReviewSchema = (req, res, next) => {
+  const { error } = reviewSchema.validate(req.body);
   if (error) {
     const msg = error.details.map((el) => el.message).join(',');
     throw new ExpressError(msg, 400);
@@ -100,6 +109,7 @@ app.delete(
 
 app.post(
   '/campgrounds/:id/reviews',
+  validateReviewSchema,
   catchAsync(async (req, res) => {
     const camp = await Campground.findOne({ _id: req.params.id });
     const review = await new Review(req.body.review);
