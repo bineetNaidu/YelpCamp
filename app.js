@@ -6,7 +6,8 @@ import methodOverride from 'method-override';
 import logger from 'morgan';
 import ejsMate from 'ejs-mate';
 import { ExpressError } from './utils/ExpressError.js';
-import session from "express-session";
+import session from 'express-session';
+import flash from 'connect-flash';
 
 // *********** App Configuration ***********
 const app = express();
@@ -43,6 +44,13 @@ app.use(
     },
   })
 );
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
+});
 
 // Unmounting routes
 import campRoutes from './routers/campgrounds.js';
