@@ -8,6 +8,9 @@ import ejsMate from 'ejs-mate';
 import { ExpressError } from './utils/ExpressError.js';
 import session from 'express-session';
 import flash from 'connect-flash';
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
+import User from './models/User.js';
 
 // *********** App Configuration ***********
 const app = express();
@@ -34,6 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(
   session({
+    // ? setting up session
     secret: 'thishouldabettersecret',
     resave: false,
     saveUninitialized: true,
@@ -45,6 +49,12 @@ app.use(
   })
 );
 app.use(flash());
+// *** AUTHENTICATION MIDDLEWARE ***
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
