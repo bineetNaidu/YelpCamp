@@ -1,0 +1,52 @@
+<% layout("layouts/boilerplate") %>
+
+<div class="row">
+  <div class="col-6 offset-3">
+    <form
+      action="/auth/register"
+      method="POST"
+      class="validate-form"
+      novalidate
+    >
+      <div class="mb-3">
+        <label class="form-label" for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          required
+        />
+        <div class="valid-feedback">Looks Good</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="username">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          name="username"
+          required
+        />
+        <div class="valid-feedback">Looks Good</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          required
+        />
+        <div class="valid-feedback">Looks Good</div>
+      </div>
+
+      <div class="mb-3">
+        <button class="btn btn-success" type="submit">Add Campground</button>
+      </div>
+    </form>
+  </div>
+</div>
