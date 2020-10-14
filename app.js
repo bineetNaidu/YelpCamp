@@ -1,11 +1,11 @@
 // ************* Import ****************
-const express = require('express');
-const path = require('path');
-const mongoose = require('mongoose');
-const methodOverride = require('method-override');
-const logger = require('morgan');
-const ejsMate = require('ejs-mate');
-const ExpressError = require('./utils/ExpressError');
+import express from 'express';
+import path from 'path';
+import mongoose from 'mongoose';
+import methodOverride from 'method-override';
+import logger from 'morgan';
+import ejsMate from 'ejs-mate';
+import { ExpressError } from './utils/ExpressError.js';
 
 // *********** App Configuration ***********
 const app = express();
@@ -26,15 +26,18 @@ db.on('open', () => console.log('>>>> DB Connected <<<<'));
 app.use(logger('dev'));
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
-app.set(path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.set(path.join('views'));
+app.use(express.static(path.join('public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
 // Unmounting routes
+import campRoutes from './routers/campgrounds.js';
+import reviewRoutes from './routers/reviews.js';
+
 app.get('/', (_, res) => res.render('home'));
-app.use('/campgrounds', require('./routers/campgrounds'));
-app.use('/campgrounds/:id/reviews', require('./routers/reviews'));
+app.use('/campgrounds', campRoutes);
+app.use('/campgrounds/:id/reviews', reviewRoutes);
 
 app.all('*', (req, res, next) => {
   next(new ExpressError('Page Not Found', 404));

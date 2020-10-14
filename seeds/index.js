@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const cities = require('./cities');
-const { places, descriptors } = require('./seedHelpers');
-const Campground = require('../models/Campground');
+import mongoose from 'mongoose';
+import cities from './cities';
+import { places, descriptors } from './seedHelpers';
+import Campground from '../models/Campground';
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
   useNewUrlParser: true,
@@ -29,7 +29,7 @@ const seedDB = async () => {
       description:
         'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
       price,
-      image: "https://source.unsplash.com/collection/483251"
+      image: 'https://source.unsplash.com/collection/483251',
     });
     await camp.save();
   }

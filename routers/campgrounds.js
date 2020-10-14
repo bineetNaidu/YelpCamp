@@ -1,7 +1,7 @@
-const router = require('express').Router({ mergeParams: true });
-const catchAsync = require('../utils/catchAsync');
-const { validateCampSchema } = require('../middlewares');
-const {
+import express from 'express';
+import catchAsync from '../utils/catchAsync.js';
+import { validateCampSchema } from '../middlewares/index.js';
+import {
   getAllCamps,
   newCamp,
   showCamp,
@@ -9,7 +9,9 @@ const {
   deleteCamp,
   editCamp,
   updateCamp,
-} = require('../controllers/campgrounds');
+} from '../controllers/campgrounds.js';
+
+const router = express.Router({ mergeParams: true });
 
 router
   .route('/')
@@ -26,4 +28,4 @@ router
 
 router.get('/:id/edit', catchAsync(editCamp));
 
-module.exports = router;
+export default router;

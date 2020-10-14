@@ -1,6 +1,6 @@
-const { campSchema, reviewSchema } = require('../schema');
+import { campSchema, reviewSchema } from '../schema.js';
 
-const validateCampSchema = (req, res, next) => {
+export const validateCampSchema = (req, res, next) => {
   const { error } = campSchema.validate(req.body);
   if (error) {
     const msg = error.details.map((el) => el.message).join(',');
@@ -9,7 +9,7 @@ const validateCampSchema = (req, res, next) => {
   next();
 };
 
-const validateReviewSchema = (req, res, next) => {
+export const validateReviewSchema = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);
   if (error) {
     const msg = error.details.map((el) => el.message).join(',');
@@ -17,5 +17,3 @@ const validateReviewSchema = (req, res, next) => {
   }
   next();
 };
-
-module.exports = { validateCampSchema, validateReviewSchema };
