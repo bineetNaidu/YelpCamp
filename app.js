@@ -9,6 +9,7 @@ const ejsMate = require('ejs-mate');
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
 const { campSchema } = require('./schema');
+const Review = require('./models/Review');
 
 // *********** App Configuration ***********
 const app = express();
@@ -94,6 +95,18 @@ app.delete(
   catchAsync(async (req, res) => {
     await Campground.findOneAndDelete({ _id: req.params.id });
     res.redirect(`/campgrounds`);
+  })
+);
+
+app.post(
+  '/campgrounds/:id/reviews',
+  catchAsync(async (req, res) => {
+    const camp = await Campground.findOne({ _id: req.params.id });
+    const review = await new Review(req.body.review);
+    await camp.reviews.push(review);
+    await review.save();
+    await camp.save();
+    res.redirect(`/campgrounds/${camp._id}`);
   })
 );
 
