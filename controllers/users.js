@@ -14,3 +14,10 @@ export const createUser = async (req, res) => {
     res.redirect('/auth/register');
   }
 };
+
+export const logInUserPage = (_, res) => res.render('users/login');
+
+export const loginUser = async (req, res) => {
+  req.flash('success', 'Welcome Back!');
+  res.redirect('/campgrounds');
+};

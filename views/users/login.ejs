@@ -2,24 +2,7 @@
 
 <div class="row">
   <div class="col-6 offset-3">
-    <form
-      action="/auth/register"
-      method="POST"
-      class="validate-form"
-      novalidate
-    >
-      <div class="mb-3">
-        <label class="form-label" for="email">Email</label>
-        <input
-          type="email"
-          class="form-control"
-          id="email"
-          name="email"
-          required
-        />
-        <div class="valid-feedback">Looks Good</div>
-      </div>
-
+    <form action="/auth/login" method="POST" class="validate-form" novalidate>
       <div class="mb-3">
         <label class="form-label" for="username">Username</label>
         <input
@@ -45,7 +28,7 @@
       </div>
 
       <div class="mb-3">
-        <button class="btn btn-success" type="submit">Register</button>
+        <button class="btn btn-success" type="submit">Login</button>
       </div>
     </form>
   </div>
