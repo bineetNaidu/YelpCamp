@@ -35,7 +35,13 @@ router.get('/new', isLoggedIn, newCamp);
 router
   .route('/:id')
   .get(catchAsync(showCamp))
-  .put(isLoggedIn, isAuthor, validateCampSchema, catchAsync(updateCamp))
+  .put(
+    isLoggedIn,
+    isAuthor,
+    upload.array('image', 4),
+    validateCampSchema,
+    catchAsync(updateCamp)
+  )
   .delete(isLoggedIn, catchAsync(deleteCamp));
 
 router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(editCamp));

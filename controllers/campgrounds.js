@@ -60,6 +60,12 @@ export const updateCamp = async (req, res) => {
     req.flash('error', 'Campground Not Found');
     return res.redirect('/campgrounds');
   }
+  const imgs = req.files.map((f) => ({
+    url: f.path,
+    filename: f.filename,
+  }));
+  camp.images.push(...imgs);
+  await camp.save();
   req.flash('success', `Successfully updated ${camp.title} Campground`);
   res.redirect(`/campgrounds/${camp._id}`);
 };

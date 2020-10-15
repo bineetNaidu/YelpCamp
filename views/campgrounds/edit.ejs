@@ -7,6 +7,7 @@
       action="/campgrounds/<%= campground._id %>?_method=PUT"
       method="POST"
       class="validate-form"
+      enctype="multipart/form-data"
       novalidate
     >
       <div class="mb-3">
@@ -55,16 +56,8 @@
       </div>
 
       <div class="mb-3">
-        <label class="form-label" for="image">Image Url</label>
-        <input
-          type="text"
-          class="form-control"
-          value="<%= campground.image %>"
-          id="image"
-          name="campground[image]"
-          required
-        />
-        <div class="valid-feedback">Looks Good</div>
+        <label class="form-label" for="image">Add Image</label>
+        <input type="file" multiple name="image" id="image" />
       </div>
 
       <div class="mb-3">
