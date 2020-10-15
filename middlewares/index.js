@@ -1,4 +1,6 @@
 import { campSchema, reviewSchema } from '../schema.js';
+import Review from '../models/Review.js';
+import Campground from '../models/Campground.js';
 
 export const validateCampSchema = (req, res, next) => {
   const { error } = campSchema.validate(req.body);
@@ -23,6 +25,16 @@ export const isLoggedIn = (req, res, next) => {
     req.session.returnTo = req.originalUrl;
     req.flash('error', 'You Must Be Logged In First!');
     return res.redirect(`/auth/login`);
+  }
+  next();
+};
+
+export const isAuthor = async (req, res, next) => {
+  const { id } = req.params;
+  const camp = await Campground.findOne({ _id: id });
+  if (!camp.author.equals(req.user._id)) {
+    req.flash('error', 'You Are Not Authorized!');
+    return res.redirect(`/campgrounds/${id}`);
   }
   next();
 };
