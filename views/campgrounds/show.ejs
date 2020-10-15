@@ -2,6 +2,7 @@
 
 <div class="row">
   <div class="col-6">
+    <div id='map' style='width: 400px; height: 300px;'></div>
     <div class="card mb-3">
       <div
         id="campCarosel"
@@ -136,3 +137,8 @@
     <% } %>
   </div>
 </div>
+
+<script>
+  const mapToken = "<%- process.env.MAPBOX_TOKEN %>"
+</script>
+<script src="/js/map.js"></script>
