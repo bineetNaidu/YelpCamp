@@ -9,13 +9,7 @@ import { createReview, deleteReview } from '../controllers/review.js';
 
 const router = express.Router({ mergeParams: true });
 
-router.post(
-  '/',
-  isLoggedIn,
-  isReviewAuthor,
-  validateReviewSchema,
-  catchAsync(createReview)
-);
+router.post('/', isLoggedIn, validateReviewSchema, catchAsync(createReview));
 
 router.delete(
   '/:reviewId',
