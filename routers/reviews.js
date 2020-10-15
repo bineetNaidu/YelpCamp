@@ -1,13 +1,27 @@
 import express from 'express';
 import catchAsync from '../utils/catchAsync.js';
-import { isLoggedIn, validateReviewSchema } from '../middlewares/index.js';
-import { createReview } from '../controllers/review.js';
-import { deleteCamp } from '../controllers/campgrounds.js';
+import {
+  isLoggedIn,
+  isReviewAuthor,
+  validateReviewSchema,
+} from '../middlewares/index.js';
+import { createReview, deleteReview } from '../controllers/review.js';
 
 const router = express.Router({ mergeParams: true });
 
-router.post('/', isLoggedIn, validateReviewSchema, catchAsync(createReview));
+router.post(
+  '/',
+  isLoggedIn,
+  isReviewAuthor,
+  validateReviewSchema,
+  catchAsync(createReview)
+);
 
-router.delete('/:reviewId', isLoggedIn, catchAsync(deleteCamp));
+router.delete(
+  '/:reviewId',
+  isLoggedIn,
+  isReviewAuthor,
+  catchAsync(deleteReview)
+);
 
 export default router;

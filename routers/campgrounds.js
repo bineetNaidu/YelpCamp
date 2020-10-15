@@ -20,7 +20,7 @@ const router = express.Router({ mergeParams: true });
 router
   .route('/')
   .get(getAllCamps)
-  .post(isLoggedIn, isAuthor, validateCampSchema, catchAsync(createCamp));
+  .post(isLoggedIn, validateCampSchema, catchAsync(createCamp));
 
 router.get('/new', isLoggedIn, newCamp);
 

@@ -11,7 +11,12 @@ export const showCamp = async (req, res) => {
   const campground = await Campground.findOne({
     _id: req.params.id,
   })
-    .populate('reviews')
+    .populate({
+      path: 'reviews',
+      populate: {
+        path: 'author',
+      },
+    })
     .populate('author');
   if (!campground) {
     req.flash('error', 'Campground Not Found');

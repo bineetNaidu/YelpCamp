@@ -8,6 +8,7 @@ export const createReview = async (req, res) => {
     return res.redirect('/campgrounds');
   }
   const review = await new Review(req.body.review);
+  review.author = req.user._id;
   await camp.reviews.push(review);
   await review.save();
   await camp.save();
