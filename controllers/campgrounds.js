@@ -1,5 +1,9 @@
 import Campground from '../models/Campground.js';
 import { cloudinary } from '../configs/cloudinary.js';
+import mbxGeocoding from '@mapbox/mapbox-sdk/services/geocoding.js';
+
+const mbxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({ accessToken: mbxToken });
 
 export const getAllCamps = async (_, res) => {
   const campgrounds = await Campground.find({});
@@ -27,19 +31,23 @@ export const showCamp = async (req, res) => {
 };
 
 export const createCamp = async (req, res) => {
-  const camp = new Campground(req.body.campground);
-  camp.images = await req.files.map((f) => ({
-    url: f.path,
-    filename: f.filename,
-  }));
-  camp.author = req.user._id;
-  if (!camp) {
-    req.flash('error', 'Campground Not Found');
-    return res.redirect('/campgrounds');
-  }
-  await camp.save();
-  req.flash('success', `Successfully Create a new Campground ${camp.title}`);
-  res.redirect(`/campgrounds/${camp._id}`);
+  const { body } = await geocoder
+    .forwardGeocode({ query: req.body.campground.location, limit: 1 })
+    .send();
+  res.send(body.features[0].geometry.coordinates);
+  // const camp = new Campground(req.body.campground);
+  // camp.images = await req.files.map((f) => ({
+  //   url: f.path,
+  //   filename: f.filename,
+  // }));
+  // camp.author = req.user._id;
+  // if (!camp) {
+  //   req.flash('error', 'Campground Not Found');
+  //   return res.redirect('/campgrounds');
+  // }
+  // await camp.save();
+  // req.flash('success', `Successfully Create a new Campground ${camp.title}`);
+  // res.redirect(`/campgrounds/${camp._id}`);
 };
 
 export const editCamp = async (req, res) => {
