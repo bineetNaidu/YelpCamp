@@ -21,3 +21,9 @@ export const loginUser = async (req, res) => {
   req.flash('success', 'Welcome Back!');
   res.redirect('/campgrounds');
 };
+
+export const logoutUser = (req, res) => {
+  req.logout();
+  req.flash('success', 'Successfully Logged out!');
+  res.redirect('/campgrounds');
+};

@@ -4,6 +4,7 @@ import {
   createUser,
   loginUser,
   logInUserPage,
+  logoutUser,
   registerUserPage,
 } from '../controllers/users.js';
 import catchAsync from '../utils/catchAsync.js';
@@ -21,5 +22,7 @@ router
     }),
     loginUser
   );
+
+router.get('/logout', logoutUser);
 
 export default router;
