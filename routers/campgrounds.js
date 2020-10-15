@@ -1,6 +1,6 @@
 import express from 'express';
 import catchAsync from '../utils/catchAsync.js';
-import { validateCampSchema } from '../middlewares/index.js';
+import { isLoggedIn, validateCampSchema } from '../middlewares/index.js';
 import {
   getAllCamps,
   newCamp,
@@ -16,16 +16,16 @@ const router = express.Router({ mergeParams: true });
 router
   .route('/')
   .get(getAllCamps)
-  .post(validateCampSchema, catchAsync(createCamp));
+  .post(isLoggedIn, validateCampSchema, catchAsync(createCamp));
 
-router.get('/new', newCamp);
+router.get('/new', isLoggedIn, newCamp);
 
 router
   .route('/:id')
   .get(catchAsync(showCamp))
-  .put(validateCampSchema, catchAsync(updateCamp))
-  .delete(catchAsync(deleteCamp));
+  .put(isLoggedIn, validateCampSchema, catchAsync(updateCamp))
+  .delete(isLoggedIn, catchAsync(deleteCamp));
 
-router.get('/:id/edit', catchAsync(editCamp));
+router.get('/:id/edit', isLoggedIn, catchAsync(editCamp));
 
 export default router;
