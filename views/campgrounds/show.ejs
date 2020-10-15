@@ -140,5 +140,6 @@
 
 <script>
   const mapToken = "<%- process.env.MAPBOX_TOKEN %>"
+  const campGeocode = <%- JSON.stringify(campground.geometry.coordinates) %>
 </script>
 <script src="/js/map.js"></script>

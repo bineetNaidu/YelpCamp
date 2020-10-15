@@ -1,7 +1,9 @@
 mapboxgl.accessToken = mapToken;
-var map = new mapboxgl.Map({
+const map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/streets-v11',
-  center: [-74.5, 40],
+  center: campGeocode,
   zoom: 9,
 });
+
+new mapboxgl.Marker().setLngLat(campGeocode).addTo(map);
