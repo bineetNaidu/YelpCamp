@@ -42,6 +42,13 @@ const seedDB = async () => {
           filename: 'YelpCamp/h3hmpbeuyuohfzgmewxv',
         },
       ],
+      geometry: {
+        type: 'Point',
+        coordinates: [
+          cities[random1000].longitude,
+          cities[random1000].latitude,
+        ],
+      },
     });
     await camp.save();
   }
