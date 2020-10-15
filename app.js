@@ -15,6 +15,13 @@ import User from './models/User.js';
 // *********** App Configuration ***********
 const app = express();
 
+// ! Env Variables
+import dotenv from 'dotenv';
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config();
+}
+// ! Evn Variables
+
 // ? ***  DB connections ******
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
   useNewUrlParser: true,
@@ -85,4 +92,4 @@ app.use((err, req, res, next) => {
 });
 
 // App Listeners
-app.listen(4242, () => console.log('YelpCamp Server has Started'));
+app.listen(process.env.PORT, () => console.log('YelpCamp Server has Started'));
