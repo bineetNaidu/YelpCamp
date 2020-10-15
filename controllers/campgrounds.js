@@ -10,7 +10,9 @@ export const newCamp = (_, res) => res.render('campgrounds/new');
 export const showCamp = async (req, res) => {
   const campground = await Campground.findOne({
     _id: req.params.id,
-  }).populate('reviews');
+  })
+    .populate('reviews')
+    .populate('author');
   if (!campground) {
     req.flash('error', 'Campground Not Found');
     return res.redirect('/campgrounds');
@@ -20,6 +22,7 @@ export const showCamp = async (req, res) => {
 
 export const createCamp = async (req, res) => {
   const camp = new Campground(req.body.campground);
+  camp.author = req.user._id;
   if (!camp) {
     req.flash('error', 'Campground Not Found');
     return res.redirect('/campgrounds');

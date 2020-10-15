@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import cities from './cities';
-import { places, descriptors } from './seedHelpers';
-import Campground from '../models/Campground';
+import cities from './cities.js';
+import { places, descriptors } from './seedHelpers.js';
+import Campground from '../models/Campground.js';
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
   useNewUrlParser: true,
@@ -24,6 +24,7 @@ const seedDB = async () => {
     const random1000 = Math.floor(Math.random() * 1000);
     const price = Math.floor(Math.random() * 20) + 10;
     const camp = new Campground({
+      author: '5f87f36baca10f3d62a85e2e',
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
       description:
