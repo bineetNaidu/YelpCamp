@@ -6,7 +6,6 @@ export const campSchema = Joi.object({
     price: Joi.number().required().min(0),
     description: Joi.string().required(),
     location: Joi.string().required(),
-    image: Joi.string().required(),
   }).required(),
 });
 
@@ -16,4 +15,3 @@ export const reviewSchema = Joi.object({
     body: Joi.string().required(),
   }).required(),
 });
-

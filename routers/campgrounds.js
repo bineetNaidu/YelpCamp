@@ -23,13 +23,14 @@ const upload = multer({ storage });
 router
   .route('/')
   .get(getAllCamps)
-  // .post(isLoggedIn, validateCampSchema, catchAsync(createCamp));
-  .post(upload.array('image'), (req, res) => {
-    console.log(req.body, req.files);
-    res.send('WORKED!');
-  });
+  .post(
+    isLoggedIn,
+    upload.array('image', 4),
+    validateCampSchema,
+    catchAsync(createCamp)
+  );
 
-router.get('/new', newCamp);
+router.get('/new', isLoggedIn, newCamp);
 
 router
   .route('/:id')

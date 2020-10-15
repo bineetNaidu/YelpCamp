@@ -27,12 +27,17 @@ export const showCamp = async (req, res) => {
 
 export const createCamp = async (req, res) => {
   const camp = new Campground(req.body.campground);
+  camp.images = await req.files.map((f) => ({
+    url: f.path,
+    filename: f.filename,
+  }));
   camp.author = req.user._id;
   if (!camp) {
     req.flash('error', 'Campground Not Found');
     return res.redirect('/campgrounds');
   }
   await camp.save();
+  console.log('CAMP >>>>>', camp);
   req.flash('success', `Successfully Create a new Campground ${camp.title}`);
   res.redirect(`/campgrounds/${camp._id}`);
 };
