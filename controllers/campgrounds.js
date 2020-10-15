@@ -1,4 +1,5 @@
 import Campground from '../models/Campground.js';
+import { cloudinary } from '../configs/cloudinary.js';
 
 export const getAllCamps = async (_, res) => {
   const campgrounds = await Campground.find({});
@@ -37,7 +38,6 @@ export const createCamp = async (req, res) => {
     return res.redirect('/campgrounds');
   }
   await camp.save();
-  console.log('CAMP >>>>>', camp);
   req.flash('success', `Successfully Create a new Campground ${camp.title}`);
   res.redirect(`/campgrounds/${camp._id}`);
 };
@@ -56,15 +56,19 @@ export const updateCamp = async (req, res) => {
     { _id: req.params.id },
     { ...req.body.campground }
   );
-  if (!camp) {
-    req.flash('error', 'Campground Not Found');
-    return res.redirect('/campgrounds');
-  }
   const imgs = req.files.map((f) => ({
     url: f.path,
     filename: f.filename,
   }));
   camp.images.push(...imgs);
+  if (req.body.deleteImages) {
+    for (let filename of req.body.deleteImages) {
+      await cloudinary.uploader.destroy(filename);
+    }
+    await camp.updateOne({
+      $pull: { images: { filename: { $in: req.body.deleteImages } } },
+    });
+  }
   await camp.save();
   req.flash('success', `Successfully updated ${camp.title} Campground`);
   res.redirect(`/campgrounds/${camp._id}`);
