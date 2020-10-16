@@ -113,11 +113,12 @@ app.use((req, res, next) => {
 });
 
 // Unmounting routes
+import indexRoutes from './routers/index.js';
 import campRoutes from './routers/campgrounds.js';
 import reviewRoutes from './routers/reviews.js';
 import usersRoutes from './routers/users.js';
 
-app.get('/', (_, res) => res.render('home'));
+app.use(indexRoutes);
 app.use('/campgrounds', campRoutes);
 app.use('/campgrounds/:id/reviews', reviewRoutes);
 app.use('/auth', usersRoutes);
