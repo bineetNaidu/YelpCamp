@@ -11,6 +11,7 @@ import flash from 'connect-flash';
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import User from './models/User.js';
+import mongoSanitize from 'express-mongo-sanitize';
 
 // *********** App Configuration ***********
 const app = express();
@@ -56,6 +57,7 @@ app.use(
   })
 );
 app.use(flash());
+app.use(mongoSanitize({ replaceWith: '__' }));
 // *** AUTHENTICATION MIDDLEWARE ***
 app.use(passport.initialize());
 app.use(passport.session());
