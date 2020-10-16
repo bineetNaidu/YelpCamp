@@ -20,6 +20,7 @@ import LocalStrategy from 'passport-local';
 import User from './models/User.js';
 import mongoSanitize from 'express-mongo-sanitize';
 import helmet from 'helmet';
+import connectMongo from 'connect-mongo';
 
 // *********** App Configuration ***********
 const app = express();
@@ -29,6 +30,7 @@ import {
   scriptSrcUrls,
   styleSrcUrls,
 } from './utils/allowedSites.js';
+const MongoStore = connectMongo(session);
 
 // ? ***  DB connections ******
 mongoose.connect(process.env.MONGODB_URI, {
@@ -42,6 +44,12 @@ db.on('error', console.error.bind(console, 'DB Connection Error'));
 db.on('open', () => console.log('>>>> DB Connected <<<<'));
 // ? ***  DB connections ******
 
+const store = new MongoStore({
+  url: process.env.MONGODB_URI,
+  secret: process.env.SESSION_SECRET,
+  touchAfter: 24 * 60 * 60, // ? 24 hrs
+});
+
 // Middlewares
 app.use(logger('dev'));
 app.engine('ejs', ejsMate);
@@ -53,6 +61,7 @@ app.use(methodOverride('_method'));
 app.use(
   session({
     // ? setting up session
+    store,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
