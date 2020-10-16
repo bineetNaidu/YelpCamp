@@ -1,3 +1,10 @@
+// ! Env Variables
+import dotenv from 'dotenv';
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config();
+}
+// ! Evn Variables
+
 // ************* Import ****************
 import express from 'express';
 import path from 'path';
@@ -12,19 +19,19 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import User from './models/User.js';
 import mongoSanitize from 'express-mongo-sanitize';
+import helmet from 'helmet';
 
 // *********** App Configuration ***********
 const app = express();
-
-// ! Env Variables
-import dotenv from 'dotenv';
-if (process.env.NODE_ENV !== 'production') {
-  dotenv.config();
-}
-// ! Evn Variables
+import {
+  connectSrcUrls,
+  fontSrcUrls,
+  scriptSrcUrls,
+  styleSrcUrls,
+} from './utils/allowedSites.js';
 
 // ? ***  DB connections ******
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -46,7 +53,7 @@ app.use(methodOverride('_method'));
 app.use(
   session({
     // ? setting up session
-    secret: 'thishouldabettersecret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     name: 'YelpCamp-sid',
@@ -60,6 +67,28 @@ app.use(
 );
 app.use(flash());
 app.use(mongoSanitize({ replaceWith: '__' }));
+// ! Security Policies
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: [],
+      connectSrc: ["'self'", ...connectSrcUrls],
+      scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+      styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+      workerSrc: ["'self'", 'blob:'],
+      objectSrc: [],
+      imgSrc: [
+        "'self'",
+        'blob:',
+        'data:',
+        process.env.ALLOWED_IMG_STORAGE, //SHOULD MATCH YOUR CLOUDINARY ACCOUNT!
+        'https://images.unsplash.com/',
+      ],
+      fontSrc: ["'self'", ...fontSrcUrls],
+    },
+  })
+);
+
 // *** AUTHENTICATION MIDDLEWARE ***
 app.use(passport.initialize());
 app.use(passport.session());
