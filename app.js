@@ -49,8 +49,10 @@ app.use(
     secret: 'thishouldabettersecret',
     resave: false,
     saveUninitialized: true,
+    name: 'YelpCamp-sid',
     cookie: {
       httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
       expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // ? 1 week
       maxAge: 1000 * 60 * 60 * 24 * 7,
     },
