@@ -83,7 +83,13 @@ export const updateCamp = async (req, res) => {
 };
 
 export const deleteCamp = async (req, res) => {
-  await Campground.findOneAndDelete({ _id: req.params.id });
+  const camp = await Campground.findOne({ _id: req.params.id });
+  if (camp.images) {
+    for (let image of camp.images) {
+      await cloudinary.uploader.destroy(image.filename);
+    }
+  }
+  await camp.remove();
   req.flash('success', 'Successfully Deleted the Campground');
   res.redirect(`/campgrounds`);
 };
