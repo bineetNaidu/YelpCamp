@@ -44,13 +44,13 @@ const CampgroundSchema = new Schema(
       },
     },
   },
-  { toJSON: { virtuals: true } }
+  { toJSON: { virtuals: true }, timestamps: true }
 ); // ? OPTIONS
 
 CampgroundSchema.virtual('properties.popUp').get(function () {
   return `<a href="/campgrounds/${this._id}" >${this.title}</a>
   <br />
-  <img src="${this.images[0].thumbnail}" />
+  <img src="${this.images[0]?.thumbnail}" />
   `;
 });
 

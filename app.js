@@ -21,6 +21,7 @@ import User from './models/User.js';
 import mongoSanitize from 'express-mongo-sanitize';
 import helmet from 'helmet';
 import connectMongo from 'connect-mongo';
+import moment from 'moment';
 
 // *********** App Configuration ***********
 const app = express();
@@ -104,6 +105,7 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+app.locals.moment = moment;
 
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
