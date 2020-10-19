@@ -49,3 +49,6 @@ export const isReviewAuthor = async (req, res, next) => {
   }
   next();
 };
+
+export const escapeRegex = (text) =>
+  text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');

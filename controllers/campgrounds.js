@@ -1,13 +1,24 @@
 import Campground from '../models/Campground.js';
 import { cloudinary } from '../configs/cloudinary.js';
 import mbxGeocoding from '@mapbox/mapbox-sdk/services/geocoding.js';
+import { escapeRegex } from '../middlewares/index.js';
 
 const mbxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mbxToken });
 
-export const getAllCamps = async (_, res) => {
-  const campgrounds = await Campground.find({});
-  res.render('campgrounds/index', { campgrounds });
+export const getAllCamps = async (req, res) => {
+  if (req.query.camp) {
+    const regex = new RegExp(escapeRegex(req.query.camp), 'gi');
+    const campgrounds = [await Campground.findOne({ title: regex })];
+    if (!campgrounds) {
+      req.flash('error', `No camps were Found with the ${req.query.camp}`);
+      return res.redirect('/campgrounds');
+    }
+    res.render('campgrounds/index', { campgrounds });
+  } else {
+    const campgrounds = await Campground.find({});
+    res.render('campgrounds/index', { campgrounds });
+  }
 };
 
 export const newCamp = (_, res) => res.render('campgrounds/new');
