@@ -1,4 +1,5 @@
 import User from '../models/User.js';
+import Campground from '../models/Campground.js';
 
 export const registerUserPage = (_, res) => res.render('users/register');
 
@@ -35,5 +36,9 @@ export const logoutUser = (req, res) => {
 
 export const getUserProfile = async (req, res) => {
   const user = await User.findOne({ _id: req.params.userid });
-  res.render('users/profile', { user });
+  const camps = await Campground.find({})
+    .where('author')
+    .equals(user._id)
+    .exec();
+  res.render('users/profile', { user, camps });
 };

@@ -1,1 +1,33 @@
-<% layout("layouts/boilerplate") %> <%= user.username %>
+<% layout("layouts/boilerplate") %>
+
+<div class="row">
+  <div class="col-md-6">
+    <h5><strong>Name :</strong> <%= user.username %></h5>
+
+    <h5>
+      <strong>Email :</strong>
+      <a href="mailto:<%= user.email %>"><%= user.email %></a>
+    </h5>
+    <p>
+      <strong>BIO -</strong>
+      <br />
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur
+      dignissimos ad perspiciatis quasi aliquam at, ea qui. Molestias voluptates
+      reiciendis modi rem quos magnam. Accusamus?
+    </p>
+  </div>
+  <div class="col-md-6">
+    <h3><%= user.username %>'s Campgrounds :-</h3>
+    <ul class="list-group list-group-flush">
+      <% camps.forEach((camp) => { %>
+      <li class="list-group-item">
+        <a
+          href="/campgrounds/<%= camp.id %>"
+          class="list-group-item list-group-item-action"
+          ><%= camp.title %></a
+        >
+      </li>
+      <% }) %>
+    </ul>
+  </div>
+</div>
