@@ -2,10 +2,23 @@ import Review from '../models/Review.js';
 import Campground from '../models/Campground.js';
 
 export const createReview = async (req, res) => {
-  const camp = await Campground.findOne({ _id: req.params.id });
+  const camp = await Campground.findOne({ _id: req.params.id }).populate(
+    'reviews'
+  );
   if (!camp) {
     req.flash('error', 'Campground Not Found');
     return res.redirect('/campgrounds');
+  }
+  let hasReview = await camp.reviews.filter((r) =>
+    r.author.equals(req.user._id)
+  );
+  if (hasReview) {
+    res.status(406);
+    req.flash(
+      'error',
+      `You Have Already Reviewed for this Campground (${camp.title})!`
+    );
+    return res.redirect(`/campgrounds/${camp.id}`);
   }
   const review = await new Review(req.body.review);
   review.author = req.user._id;
