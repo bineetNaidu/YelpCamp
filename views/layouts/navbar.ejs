@@ -48,7 +48,11 @@
             <li>
               <a class="dropdown-item" href="#">@<%= currentUser.username %></a>
             </li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li>
+              <a class="dropdown-item" href="/user/<%= currentUser._id %> "
+                >Profile</a
+              >
+            </li>
             <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
           </ul>

@@ -118,12 +118,14 @@ app.use((req, res, next) => {
 import indexRoutes from './routers/index.js';
 import campRoutes from './routers/campgrounds.js';
 import reviewRoutes from './routers/reviews.js';
+import authRoutes from './routers/auths.js';
 import usersRoutes from './routers/users.js';
 
 app.use(indexRoutes);
 app.use('/campgrounds', campRoutes);
 app.use('/campgrounds/:id/reviews', reviewRoutes);
-app.use('/auth', usersRoutes);
+app.use('/auth', authRoutes);
+app.use('/user', usersRoutes);
 
 app.all('*', (req, res, next) => {
   next(new ExpressError('Page Not Found', 404));

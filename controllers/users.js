@@ -32,3 +32,8 @@ export const logoutUser = (req, res) => {
   req.flash('success', 'Successfully Logged out!');
   res.redirect('/campgrounds');
 };
+
+export const getUserProfile = async (req, res) => {
+  const user = await User.findOne({ _id: req.params.userid });
+  res.render('users/profile', { user });
+};
