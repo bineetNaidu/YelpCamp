@@ -7,7 +7,7 @@ const router = Router();
 
 router
   .route('/:userid')
-  .get(getUserProfile)
+  .get(catchAsync(getUserProfile))
   .put(
     catchAsync(isValidPassword),
     catchAsync(changePassword),

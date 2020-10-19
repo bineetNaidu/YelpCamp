@@ -69,7 +69,8 @@ export const isValidPassword = async (req, res, next) => {
     // flash an error
     req.flash('error', 'Incorrect Current Password!');
     // short circuit the route middleware and redirect to /profile
-    return res.redirect(`/user/${user._id}`);
+    // return res.redirect(`/user/${currentUser._id}`);
+    return res.redirect(`back`);
   }
 };
 

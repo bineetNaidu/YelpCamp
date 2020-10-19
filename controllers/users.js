@@ -36,12 +36,17 @@ export const logoutUser = (req, res) => {
 };
 
 export const getUserProfile = async (req, res) => {
-  const user = await User.findOne({ _id: req.params.userid });
-  const camps = await Campground.find({})
-    .where('author')
-    .equals(user._id)
-    .exec();
-  res.render('users/profile', { user, camps });
+  try {
+    const user = await User.findOne({ _id: req.params.userid });
+    const camps = await Campground.find({})
+      .where('author')
+      .equals(user._id)
+      .exec();
+    res.render('users/profile', { user, camps });
+  } catch (err) {
+    req.flash('error', 'User Not Found');
+    return res.redirect('/campgrounds');
+  }
 };
 
 export const updateUserProfile = async (req, res) => {
