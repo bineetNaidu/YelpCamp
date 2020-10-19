@@ -72,3 +72,35 @@ export const isValidPassword = async (req, res, next) => {
     return res.redirect(`/user/${user._id}`);
   }
 };
+
+// changing password
+export const changePassword = async (req, res, next) => {
+  // destructure new password values from req.body object
+  const { newPassword, passwordConfirmation } = req.body;
+
+  // check if newPassword is there but not passwordConfirmation
+  if (newPassword && !passwordConfirmation) {
+    req.flash('error', 'Missing password confirmation!');
+    return res.redirect(`/user/${currentUser._id}`);
+  }
+  // check if new password values exist
+  else if (newPassword && passwordConfirmation) {
+    // destructure user from res.locals
+    const { currentUser } = res.locals;
+    // check if new passwords match
+    if (newPassword === passwordConfirmation) {
+      // set new password on user object
+      await currentUser.setPassword(newPassword);
+      // go to next middleware
+      next();
+    } else {
+      // flash error
+      req.flash('error', 'New passwords must match!');
+      // short circuit the route middleware and redirect to /profile
+      return res.redirect(`/user/${currentUser._id}`);
+    }
+  } else {
+    // go to next middleware
+    next();
+  }
+};
