@@ -2,6 +2,7 @@ import { campSchema, reviewSchema } from '../schema.js';
 import Review from '../models/Review.js';
 import Campground from '../models/Campground.js';
 import { ExpressError } from '../utils/ExpressError.js';
+import User from '../models/User.js';
 
 export const validateCampSchema = (req, res, next) => {
   const { error } = campSchema.validate(req.body);
@@ -52,3 +53,22 @@ export const isReviewAuthor = async (req, res, next) => {
 
 export const escapeRegex = (text) =>
   text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+
+// validate password
+export const isValidPassword = async (req, res, next) => {
+  const { user } = await User.authenticate()(
+    req.user.username,
+    req.body.currentPassword
+  );
+  if (user) {
+    // add user to res.locals
+    res.locals.currentUser = user;
+    // go to next middleware
+    next();
+  } else {
+    // flash an error
+    req.flash('error', 'Incorrect Current Password!');
+    // short circuit the route middleware and redirect to /profile
+    return res.redirect(`/user/${user._id}`);
+  }
+};
