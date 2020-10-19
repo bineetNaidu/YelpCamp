@@ -13,6 +13,7 @@ export const styleSrcUrls = [
   'https://api.tiles.mapbox.com/',
   'https://fonts.googleapis.com/',
   'https://use.fontawesome.com/',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css',
 ];
 export const connectSrcUrls = [
   'https://api.mapbox.com/',
@@ -20,4 +21,13 @@ export const connectSrcUrls = [
   'https://b.tiles.mapbox.com/',
   'https://events.mapbox.com/',
 ];
-export const fontSrcUrls = [];
+export const fontSrcUrls = [
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-brands-400.woff',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-brands-400.ttf',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-regular-400.woff2',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-regular-400.woff',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-regular-400.ttf',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-solid-900.woff2',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-solid-900.woff',
+  'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/webfonts/fa-solid-900.ttf',
+];

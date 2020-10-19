@@ -20,9 +20,39 @@
         <a class="nav-link" href="/campgrounds/new">New Campgrounds</a>
       </div>
       <div class="navbar-nav ml-auto">
+        <form class="d-flex">
+          <input
+            class="form-control form-control-sm mr-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            name="camp"
+          />
+          <button class="btn btn-outline-success" hidden type="submit">
+            Search
+          </button>
+        </form>
         <% if (currentUser) { %>
-        <a class="nav-link">@<%= currentUser.username %> </a>
-        <a class="nav-link" href="/auth/logout">Logout</a>
+        <li class="nav-item dropdown dropleft">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fas fa-user-circle"></i>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" href="#">@<%= currentUser.username %></a>
+            </li>
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
+          </ul>
+        </li>
         <% } else { %>
         <a class="nav-link" href="/auth/login">Login</a>
         <a class="nav-link" href="/auth/register">Sign up</a>
