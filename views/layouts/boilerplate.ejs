@@ -32,9 +32,11 @@
     />
   </head>
   <body class="d-flex flex-column vh-100">
-    <%- include navbar %>
-    <main class="container mt-5"><%- include flash %> <%- body -%></main>
-    <%- include footer %>
+    <%- include("./navbar.ejs") %>
+    <main class="container mt-5">
+      <%- include("./flash.ejs") %> <%- body -%>
+    </main>
+    <%- include("./footer.ejs") %>
 
     <!-- Scripts -->
     <script
