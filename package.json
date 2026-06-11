@@ -44,6 +44,6 @@
   },
   "devDependencies": {
     "locus": "^2.0.4",
-    "nodemon": "^2.0.20"
+    "nodemon": "^3.1.14"
   }
 }
