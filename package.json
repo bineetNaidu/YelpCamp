@@ -40,7 +40,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^7.1.2",
-    "sanitize-html": "^2.17.5"
+    "sanitize-html": "^2.17.7"
   },
   "devDependencies": {
     "locus": "^2.0.4",
